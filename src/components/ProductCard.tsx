@@ -5,11 +5,19 @@ interface ProductCardProps {
   description: string;
   image: string;
   category: string;
-  details?: string; 
+  details?: string;
 }
 
-// Option A: Define then Export (Recommended for clarity)
 const ProductCard = ({ title, description, image, category, details }: ProductCardProps) => {
+  // WhatsApp Logic
+  const handleEnquiry = () => {
+    const phoneNumber = "917984604311";
+    const message = encodeURIComponent(
+      `Hello! I am interested in ${title}. Please tell us what you want to know.`
+    );
+    window.open(`https://wa.me/${phoneNumber}?text=${message}`, "_blank");
+  };
+
   return (
     <div className="group bg-card rounded-xl overflow-hidden shadow-md card-hover flex flex-col h-full">
       <div className="relative h-48 overflow-hidden">
@@ -36,7 +44,10 @@ const ProductCard = ({ title, description, image, category, details }: ProductCa
           </div>
         )}
         
-        <button className="flex items-center gap-2 text-sm font-medium text-accent hover:gap-3 transition-all mt-auto">
+        <button 
+          onClick={handleEnquiry}
+          className="flex items-center gap-2 text-sm font-medium text-accent hover:gap-3 transition-all mt-auto w-fit"
+        >
           Enquire Now <ArrowRight size={16} />
         </button>
       </div>
@@ -44,4 +55,4 @@ const ProductCard = ({ title, description, image, category, details }: ProductCa
   );
 };
 
-export default ProductCard; // Correct way to provide a default export
+export default ProductCard;
