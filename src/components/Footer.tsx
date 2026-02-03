@@ -29,7 +29,7 @@ const Footer = () => {
               </a>
               {/* 2. Added WhatsApp Icon Button */}
               <a 
-                href="https://wa.me/917984604311" 
+                href="https://wa.me/917990343575" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="p-2 rounded-full bg-primary-foreground/10 hover:bg-[#25D366] hover:text-white transition-colors"
@@ -88,13 +88,13 @@ const Footer = () => {
               </li>
               <li className="flex items-center gap-3">
                 <Phone size={18} className="text-accent flex-shrink-0" />
-                <span className="text-primary-foreground/80 text-sm">+91 79846 04311</span>
+                <span className="text-primary-foreground/80 text-sm">+917990343575</span>
               </li>
               {/* 3. Added WhatsApp as a text link in Contact Info */}
               <li className="flex items-center gap-3">
                 <MessageCircle size={18} className="text-accent flex-shrink-0" />
                 <a 
-                  href="https://wa.me/917984604311" 
+                  href="https://wa.me/917990343575" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="text-primary-foreground/80 text-sm hover:text-accent transition-colors"

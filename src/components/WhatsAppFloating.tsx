@@ -2,7 +2,7 @@ import { FC } from "react";
 import { MessageCircle } from "lucide-react";
 
 const WhatsAppFloating: FC = () => {
-  const phoneNumber: string = "917984604311";
+  const phoneNumber: string = "917990343575";
   const message: string = encodeURIComponent(
     "Hello! I am interested in your export services."
   );

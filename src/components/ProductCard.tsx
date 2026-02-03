@@ -11,7 +11,7 @@ interface ProductCardProps {
 const ProductCard = ({ title, description, image, category, details }: ProductCardProps) => {
   // WhatsApp Logic
   const handleEnquiry = () => {
-    const phoneNumber = "917984604311";
+    const phoneNumber = "917990343575";
     const message = encodeURIComponent(
       `Hello! I am interested in ${title}. Please tell us what you want to know.`
     );

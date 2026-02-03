@@ -180,7 +180,7 @@ const Contact = () => {
                 </div>
                 <div className="flex items-center gap-4">
                   <Phone className="text-accent flex-shrink-0" size={22} />
-                  <p className="text-sm">+91 79846 04311</p>
+                  <p className="text-sm">+917990343575</p>
                 </div>
                 <div className="flex items-center gap-4">
                   <Mail className="text-accent flex-shrink-0" size={22} />
