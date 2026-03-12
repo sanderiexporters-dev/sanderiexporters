@@ -49,7 +49,7 @@ const Home = () => {
             style={{ background: "rgba(255,248,240,0.10)", backdropFilter: "blur(8px)", color: "rgba(255,248,240,0.88)", border: "1px solid rgba(255,248,240,0.15)" }}
           >
             <Globe size={16} style={{ color: C.caramel }} />
-            Serving 50+ Countries Worldwide
+            Serving 48+ Countries Worldwide
           </div>
 
           <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 animate-slide-up" style={{ color: C.cream }}>
@@ -127,10 +127,10 @@ const Home = () => {
       <section className="py-16" style={{ background: `linear-gradient(135deg, ${C.espresso}, ${C.espressoDark})` }}>
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            <StatCard number="15+" label="Years Experience" icon={<Award size={24} />} />
-            <StatCard number="50+" label="Countries Served" icon={<Globe size={24} />} />
-            <StatCard number="500+" label="Happy Clients" icon={<Users size={24} />} />
-            <StatCard number="1000+" label="Shipments Delivered" icon={<Ship size={24} />} />
+            <StatCard number="14+" label="Years Experience" icon={<Award size={24} />} />
+            <StatCard number="48+" label="Countries Served" icon={<Globe size={24} />} />
+            <StatCard number="479+" label="Happy Clients" icon={<Users size={24} />} />
+            <StatCard number="1120+" label="Shipments Delivered" icon={<Ship size={24} />} />
           </div>
         </div>
       </section>
@@ -197,7 +197,7 @@ const Home = () => {
                 <div className="space-y-4">
                   <div className="rounded-xl p-6 text-center" style={{ background: `linear-gradient(135deg, ${C.espresso}, ${C.cognac})` }}>
                     <Building size={32} className="mx-auto mb-2" style={{ color: C.caramel }} />
-                    <div className="text-2xl font-bold" style={{ color: C.cream }}>15+</div>
+                    <div className="text-2xl font-bold" style={{ color: C.cream }}>14+</div>
                     <div className="text-sm" style={{ color: "rgba(255,248,240,0.70)" }}>Years in Business</div>
                   </div>
                   <div className="rounded-xl p-6 text-center" style={{ background: `linear-gradient(135deg, ${C.caramel}, #D4A06A)` }}>
@@ -209,12 +209,12 @@ const Home = () => {
                 <div className="pt-8 space-y-4">
                   <div className="rounded-xl p-6 text-center" style={{ background: C.parchment, border: "1px solid rgba(212,186,160,0.5)" }}>
                     <Globe size={32} className="mx-auto mb-2" style={{ color: C.espresso }} />
-                    <div className="text-2xl font-bold" style={{ color: C.espresso }}>50+</div>
+                    <div className="text-2xl font-bold" style={{ color: C.espresso }}>48+</div>
                     <div className="text-sm" style={{ color: C.muted }}>Countries</div>
                   </div>
                   <div className="rounded-xl p-6 text-center" style={{ background: `linear-gradient(135deg, ${C.espresso}, ${C.cognac})` }}>
                     <Ship size={32} className="mx-auto mb-2" style={{ color: C.caramel }} />
-                    <div className="text-2xl font-bold" style={{ color: C.cream }}>1000+</div>
+                    <div className="text-2xl font-bold" style={{ color: C.cream }}>1120+</div>
                     <div className="text-sm" style={{ color: "rgba(255,248,240,0.70)" }}>Shipments</div>
                   </div>
                 </div>
