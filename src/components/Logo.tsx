@@ -6,7 +6,7 @@ interface LogoProps {
 const Logo = ({ variant = "dark", size = "md" }: LogoProps) => {
   const imageSizes = {
     sm: "h-6",
-    md: "h-9",
+    md: "h-12",
     lg: "h-12",
   };
 

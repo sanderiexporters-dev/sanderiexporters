@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import Logo from "./Logo";
-import { Button } from "./ui/button";
 
 const navLinks = [
   { name: "Home", path: "/" },
@@ -19,98 +18,128 @@ const Navbar = () => {
   const location = useLocation();
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
+    const handleScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
-    <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? "bg-card/95 backdrop-blur-md shadow-md py-2"
-          : "bg-transparent py-4"
-      }`}
-    >
-      <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between">
-          <Link to="/">
-            <Logo variant={isScrolled ? "dark" : "light"} />
-          </Link>
-
-          {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center gap-8">
-            {navLinks.map((link) => (
-              <Link
-                key={link.path}
-                to={link.path}
-                className={`text-sm font-medium transition-colors link-underline ${
-                  location.pathname === link.path
-                    ? "text-accent"
-                    : isScrolled
-                    ? "text-foreground hover:text-accent"
-                    : "text-primary-foreground/90 hover:text-primary-foreground"
-                }`}
-              >
-                {link.name}
-              </Link>
-            ))}
-          </div>
-
-          {/* <div className="hidden lg:block">
-            <Link to="/login">
-              <Button variant="accent" size="sm">
-                Login
-              </Button>
+    <>
+      <nav
+        className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
+        style={{
+          background: isScrolled ? "rgba(255,248,240,0.96)" : "transparent",
+          backdropFilter: isScrolled ? "blur(12px)" : "none",
+          boxShadow: isScrolled ? "0 2px 20px rgba(75,46,43,0.10)" : "none",
+          padding: isScrolled ? "0.5rem 0" : "1rem 0",
+          borderBottom: isScrolled ? "1px solid rgba(212,186,160,0.35)" : "none",
+        }}
+      >
+        <div className="container mx-auto px-4">
+          <div className="flex items-center justify-between">
+            {/* Logo */}
+            <Link to="/">
+              <Logo variant={isScrolled ? "dark" : "light"} />
             </Link>
-          </div> */}
 
-          {/* Mobile Menu Button */}
-          <button
-            className="lg:hidden p-2"
-            onClick={() => setIsOpen(!isOpen)}
-            aria-label="Toggle menu"
-          >
-            {isOpen ? (
-              <X className={isScrolled ? "text-foreground" : "text-primary-foreground"} />
-            ) : (
-              <Menu className={isScrolled ? "text-foreground" : "text-primary-foreground"} />
-            )}
-          </button>
-        </div>
-
-        {/* Mobile Navigation */}
-        {isOpen && (
-          <div className="lg:hidden absolute top-full left-0 right-0 bg-card shadow-lg border-t animate-slide-up">
-            <div className="flex flex-col py-4">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.path}
-                  to={link.path}
-                  onClick={() => setIsOpen(false)}
-                  className={`px-4 py-3 text-sm font-medium transition-colors ${
-                    location.pathname === link.path
-                      ? "text-accent bg-accent/5"
-                      : "text-foreground hover:text-accent hover:bg-accent/5"
-                  }`}
-                >
-                  {link.name}
-                </Link>
-              ))}
-              {/* <div className="px-4 pt-3 border-t mt-2">
-                <Link to="/login" onClick={() => setIsOpen(false)}>
-                  <Button variant="accent" className="w-full">
-                    Login
-                  </Button>
-                </Link>
-              </div> */}
+            {/* Desktop links */}
+            <div className="hidden lg:flex items-center gap-8">
+              {navLinks.map((link) => {
+                const isActive = location.pathname === link.path;
+                return (
+                  <Link
+                    key={link.path}
+                    to={link.path}
+                    className="text-sm font-medium transition-colors relative nav-link"
+                    style={{
+                      color: isActive
+                        ? "#C08552"
+                        : isScrolled
+                        ? "#4B2E2B"
+                        : "rgba(255,248,240,0.90)",
+                      textDecoration: "none",
+                    }}
+                    data-active={isActive ? "true" : "false"}
+                    data-scrolled={isScrolled ? "true" : "false"}
+                  >
+                    {link.name}
+                    {/* Active underline */}
+                    {isActive && (
+                      <span
+                        style={{
+                          position: "absolute",
+                          bottom: -4,
+                          left: 0,
+                          right: 0,
+                          height: 1.5,
+                          background: "linear-gradient(90deg, #C08552, #D4A06A)",
+                          borderRadius: 2,
+                        }}
+                      />
+                    )}
+                  </Link>
+                );
+              })}
             </div>
+
+            {/* Mobile hamburger */}
+            <button
+              className="lg:hidden p-2"
+              onClick={() => setIsOpen(!isOpen)}
+              aria-label="Toggle menu"
+              style={{ background: "transparent", border: "none", cursor: "pointer" }}
+            >
+              {isOpen ? (
+                <X style={{ color: isScrolled ? "#4B2E2B" : "#FFF8F0" }} size={22} />
+              ) : (
+                <Menu style={{ color: isScrolled ? "#4B2E2B" : "#FFF8F0" }} size={22} />
+              )}
+            </button>
           </div>
-        )}
-      </div>
-    </nav>
+
+          {/* Mobile dropdown */}
+          {isOpen && (
+            <div
+              className="lg:hidden absolute top-full left-0 right-0 animate-slide-up"
+              style={{
+                background: "#FFF8F0",
+                borderTop: "1px solid rgba(212,186,160,0.4)",
+                boxShadow: "0 8px 24px rgba(75,46,43,0.10)",
+              }}
+            >
+              <div className="flex flex-col py-4">
+                {navLinks.map((link) => {
+                  const isActive = location.pathname === link.path;
+                  return (
+                    <Link
+                      key={link.path}
+                      to={link.path}
+                      onClick={() => setIsOpen(false)}
+                      className="px-4 py-3 text-sm font-medium transition-colors"
+                      style={{
+                        color: isActive ? "#C08552" : "#4B2E2B",
+                        background: isActive ? "rgba(192,133,82,0.06)" : "transparent",
+                        borderLeft: isActive ? "3px solid #C08552" : "3px solid transparent",
+                        textDecoration: "none",
+                      }}
+                    >
+                      {link.name}
+                    </Link>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+        </div>
+      </nav>
+
+      {/* Hover styles for desktop links */}
+      <style>{`
+        .nav-link:hover {
+          color: #C08552 !important;
+        }
+      `}</style>
+    </>
   );
 };
 
