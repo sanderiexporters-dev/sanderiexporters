@@ -6,14 +6,15 @@ interface StatCardProps {
 
 const StatCard = ({ number, label, icon }: StatCardProps) => {
   return (
-    <div className="text-center p-6 bg-primary-foreground/10 rounded-xl backdrop-blur-sm">
-      <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-accent text-accent-foreground mb-4">
+    <div className="relative overflow-hidden rounded-[1.6rem] border border-white/10 bg-white/8 p-6 text-left backdrop-blur-md transition-transform duration-500 hover:-translate-y-1">
+      <div className="absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent" />
+      <div className="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-white/12 text-accent shadow-[0_12px_24px_rgba(0,0,0,0.12)]">
         {icon}
       </div>
-      <div className="font-heading text-3xl md:text-4xl font-bold text-primary-foreground mb-2">
+      <div className="font-heading text-3xl md:text-4xl font-semibold text-primary-foreground mb-2">
         {number}
       </div>
-      <div className="text-primary-foreground/80 text-sm font-medium">
+      <div className="font-display text-[0.72rem] uppercase tracking-[0.2em] text-primary-foreground/70">
         {label}
       </div>
     </div>

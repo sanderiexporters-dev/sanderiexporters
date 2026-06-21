@@ -1,154 +1,213 @@
-import { useState } from "react";
-import Navbar from "@/components/Navbar";
+import { ArrowRight, Boxes, Globe2, Search, Ship } from "lucide-react";
+import { Link } from "react-router-dom";
 import Footer from "@/components/Footer";
-import SectionHeading from "@/components/SectionHeading";
-import ProductCard from "@/components/ProductCard";
-import WhatsAppFloating from "@/components/WhatsAppFloating";
+import Navbar from "@/components/Navbar";
+import ProductSlider from "@/components/ProductSlider";
+import SEOMetadata from "@/components/SEOMetadata";
 import SocialSidebar from "@/components/SocialSidebar";
-
-import riceImg from "@/assets/rice.jpg";
-import peanutsImg from "@/assets/peanuts.jpg";
-import sesameImg from "@/assets/sesame.jpg";
-import spicesImg from "@/assets/spices.jpg";
-import pulsesImg from "@/assets/pulses.jpg";
-import freshProduceImg from "@/assets/fresh-produce.jpg";
-
-const C = {
-  cream:    "#FFF8F0",
-  espresso: "#4B2E2B",
-  espressoDark: "#2D1A18",
-  cognac:   "#8C5A3C",
-  caramel:  "#C08552",
-  parchment:"#F5EDE3",
-  muted:    "rgba(75,46,43,0.68)",
-};
-
-const products = [
-  { title: "Rice Range", description: "Basmati, Non-Basmati, Parboiled, and Broken Rice. Sourced for premium quality and aroma.", image: riceImg, category: "Export", details: "Packaging: 5kg, 10kg, 25kg, 50kg (PP/Jute/Private Label)" },
-  { title: "Peanuts / Groundnuts", description: "Bold and Java Peanuts. Available in Raw, Shelled, or Inshell forms for consumption or oil extraction.", image: peanutsImg, category: "Export", details: "Forms: Roasted, Blanched, Raw, Shelled, Inshell" },
-  { title: "Sesame & Oil Seeds", description: "Premium White, Black, and Hulled Sesame Seeds. Also supplying high-purity Sunflower and Mustard seeds.", image: sesameImg, category: "Export", details: "Varieties: White, Black, Hulled, Sunflower, Mustard Seeds" },
-  { title: "Indian Spices", description: "Turmeric Fingers/Powder, Cumin, Coriander, Red Chilli, and Fennel Seeds. Machine or Sortex cleaned.", image: spicesImg, category: "Export", details: "Quality: Machine-cleaned / Sortex-cleaned" },
-  { title: "Pulses & Lentils", description: "Nutritious Chickpeas, Green Moong, Masoor Dal, Toor Dal, and Urad Dal processed for international safety.", image: pulsesImg, category: "Export", details: "Types: Chickpeas, Green Moong, Masoor, Toor, Urad Dal" },
-  { title: "Fruits & Vegetables", description: "Onions, Garlic, Mangoes, Pomegranates, Coconut, Drumstick, Ginger, and seasonal specialty items.", image: freshProduceImg, category: "Export", details: "Includes: Suran, Ash Gourd, Pumpkin, Raw Turmeric, Banana" },
-];
+import WhatsAppFloating from "@/components/WhatsAppFloating";
+import heroBg from "@/assets/hero-bg.jpg";
+import { productCategories } from "@/data/productCatalog";
+import { company, siteUrl } from "@/data/siteMetadata";
 
 const Products = () => {
-  const [activeCategory, setActiveCategory] = useState("All Products");
+  const productsUrl = `${siteUrl}/products`;
 
   return (
-    <div className="min-h-screen" style={{ background: C.cream }}>
+    <div className="min-h-screen bg-[#f5f8fb]">
+      <SEOMetadata
+        title="Export Product Categories from India"
+        description="Explore export-ready rice, spices, peanuts, sesame seeds, pulses and fresh produce from Sanderi Exporters in Ahmedabad, India for worldwide importers and wholesale buyers."
+        keywords="export product categories India, rice exporter India, spices exporter India, peanut exporter India, sesame seeds exporter, pulses exporter India, fresh produce exporter Ahmedabad"
+        url={productsUrl}
+        schema={[
+          {
+            "@context": "https://schema.org",
+            "@type": "CollectionPage",
+            "@id": `${productsUrl}#webpage`,
+            name: "Export Product Categories from India",
+            description:
+              "Export-ready agricultural product categories supplied by Sanderi Exporters for worldwide importers.",
+            url: productsUrl,
+            isPartOf: { "@id": `${siteUrl}/#website` },
+            publisher: { "@id": `${siteUrl}/#organization` },
+          },
+          {
+            "@context": "https://schema.org",
+            "@type": "ItemList",
+            name: "Sanderi Exporters Product Categories",
+            itemListElement: productCategories.map((category, index) => ({
+              "@type": "ListItem",
+              position: index + 1,
+              url: `${siteUrl}/products/${category.slug}`,
+              name: `${category.name} Export`,
+              description: category.description,
+            })),
+          },
+          {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
+              { "@type": "ListItem", position: 2, name: "Products", item: productsUrl },
+            ],
+          },
+          {
+            "@context": "https://schema.org",
+            "@type": "ContactPoint",
+            telephone: company.phone,
+            contactType: "sales",
+            areaServed: "Worldwide",
+          },
+        ]}
+      />
+
       <Navbar />
+      <SocialSidebar />
+      <WhatsAppFloating />
 
-      {/* ── Hero ── */}
-      <section
-        className="relative pt-24 pb-16 md:pt-32 md:pb-24 overflow-hidden text-center"
-        style={{ background: `linear-gradient(145deg, ${C.espresso}, ${C.espressoDark})` }}
-      >
-        <div style={{ position: "absolute", top: "-15%", left: "-5%", width: 320, height: 320, borderRadius: "50%", background: "radial-gradient(circle,rgba(192,133,82,0.10) 0%,transparent 70%)", pointerEvents: "none" }} />
-        <div style={{ position: "absolute", bottom: "-15%", right: "-5%", width: 240, height: 240, borderRadius: "50%", background: "radial-gradient(circle,rgba(192,133,82,0.08) 0%,transparent 70%)", pointerEvents: "none" }} />
-        <div className="relative container mx-auto px-4" style={{ color: C.cream }}>
-          <span style={{ fontFamily: "'Cinzel', serif", fontSize: "0.65rem", letterSpacing: "0.25em", textTransform: "uppercase", color: C.caramel, display: "block", marginBottom: "1.25rem" }}>
-            Premium Exports
-          </span>
-          <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold mb-6" style={{ color: C.cream }}>
-            Our <span style={{ color: C.caramel }}>Product Range</span>
-          </h1>
-          <p className="text-lg max-w-2xl mx-auto" style={{ color: "rgba(255,248,240,0.70)" }}>
-            Explore our comprehensive range of agricultural exports, pulses, and fresh seasonal produce.
-          </p>
-        </div>
-      </section>
-
-      {/* ── Filter bar ── */}
-      <section className="py-6 border-b" style={{ background: C.parchment, borderColor: "rgba(212,186,160,0.4)" }}>
-        <div className="container mx-auto px-4 flex justify-center">
-          <button
-            style={{
-              padding: "0.5rem 2rem",
-              background: `linear-gradient(135deg, ${C.espresso}, ${C.cognac})`,
-              color: C.cream,
-              borderRadius: 999,
-              fontSize: "0.82rem",
-              fontWeight: 500,
-              letterSpacing: "0.06em",
-              border: "none",
-              cursor: "pointer",
-              boxShadow: "0 4px 14px rgba(75,46,43,0.20)",
-            }}
-          >
-            All Products
-          </button>
-        </div>
-      </section>
-
-      {/* ── Products Grid ── */}
-      <section className="py-20" style={{ background: C.cream }}>
-        <div className="container mx-auto px-4">
-          <SectionHeading title="What We Trade" subtitle="Premium quality products sourced from verified Indian farms." />
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {products.map((product, i) => (
-              <ProductCard key={i} {...product} />
-            ))}
+      <main>
+        <section className="relative min-h-[74vh] overflow-hidden px-4 pb-16 pt-32 text-white md:pt-40">
+          <div className="absolute inset-0">
+            <img src={heroBg} alt="Worldwide import export product categories" className="h-full w-full object-cover" />
+            <div className="hero-overlay absolute inset-0" />
+            <div className="route-grid absolute inset-0" />
           </div>
+          <span className="route-line left-[10%] top-[34%] w-56 rotate-6" />
+          <span className="route-line left-[54%] top-[60%] w-48 -rotate-12" style={{ animationDelay: "700ms" }} />
 
-          {/* Seasonal availability box */}
-          <div
-            className="mt-16 p-8 rounded-2xl"
-            style={{
-              background: C.parchment,
-              border: `1.5px dashed rgba(192,133,82,0.35)`,
-              position: "relative",
-            }}
-          >
-            {/* Corner ornaments */}
-            <div style={{ position: "absolute", top: 12, left: 12, width: 20, height: 20, borderTop: `1.5px solid ${C.caramel}`, borderLeft: `1.5px solid ${C.caramel}`, opacity: 0.5 }} />
-            <div style={{ position: "absolute", top: 12, right: 12, width: 20, height: 20, borderTop: `1.5px solid ${C.caramel}`, borderRight: `1.5px solid ${C.caramel}`, opacity: 0.5 }} />
-            <div style={{ position: "absolute", bottom: 12, left: 12, width: 20, height: 20, borderBottom: `1.5px solid ${C.caramel}`, borderLeft: `1.5px solid ${C.caramel}`, opacity: 0.5 }} />
-            <div style={{ position: "absolute", bottom: 12, right: 12, width: 20, height: 20, borderBottom: `1.5px solid ${C.caramel}`, borderRight: `1.5px solid ${C.caramel}`, opacity: 0.5 }} />
-
-            <h4 className="font-bold text-lg mb-4" style={{ color: C.espresso }}>Seasonal Fresh Item Availability:</h4>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm" style={{ color: C.muted }}>
-              {["Onions & Potatoes", "Mangoes (Seasonal)", "Pomegranates", "Green Chilly", "Suran (Elephant Yam)", "Drumstick (Moringa)", "Ash Gourd / Pumpkin", "Raw Turmeric"].map((item, i) => (
-                <p key={i} className="flex items-center gap-1.5">
-                  <span style={{ width: 5, height: 5, borderRadius: "50%", background: C.caramel, display: "inline-block", flexShrink: 0 }} />
-                  {item}
+          <div className="container relative mx-auto">
+            <div className="grid gap-10 md:grid-cols-[1.05fr_0.95fr] md:items-end">
+              <div className="animate-reveal-up">
+                <span className="badge-premium">Product categories</span>
+                <h1 className="mt-6 max-w-4xl text-5xl text-white md:text-7xl">
+                  Moving export desk for global buyers.
+                </h1>
+                <p className="mt-6 max-w-3xl text-lg leading-8 text-white/72">
+                  Choose a category to go deeper into exact product names, export specifications, packaging options, and direct WhatsApp enquiries. Built for worldwide importers, wholesalers, distributors, private label buyers, and bulk trade partners.
                 </p>
+              </div>
+
+              <div className="grid gap-3 md:justify-end">
+                {[
+                  { icon: <Search size={18} />, title: "Category to variety", text: "Rice opens basmati, IR64, parboiled and more" },
+                  { icon: <Boxes size={18} />, title: "Packaging details", text: "Bulk bags, cartons, retail and private label" },
+                  { icon: <Ship size={18} />, title: "Export support", text: "MOQ, documentation and shipment planning" },
+                ].map((item) => (
+                  <div key={item.title} className="flex max-w-md items-start gap-3 border border-white/14 bg-white/8 p-4 backdrop-blur-md" style={{ borderRadius: "0.5rem" }}>
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center bg-[#f59e0b] text-[#121826]" style={{ borderRadius: "0.5rem" }}>
+                      {item.icon}
+                    </div>
+                    <div>
+                      <h3 className="text-base text-white">{item.title}</h3>
+                      <p className="mt-1 text-sm text-white/62">{item.text}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <ProductSlider compact />
+
+        <section className="px-4 py-20">
+          <div className="container mx-auto">
+            <div className="mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+              <div>
+                <span className="section-kicker">Explore product categories</span>
+                <h2 className="mt-3">Click category, then choose exact product name</h2>
+              </div>
+              <p className="max-w-xl text-sm leading-7 text-[#273244]/70">
+                Every product category has its own page. For example, Rice opens Basmati Rice, Non-Basmati Rice, Sona Masoori, IR64, Parboiled Rice and Broken Rice. Spices opens Turmeric, Cumin, Red Chilli and more.
+              </p>
+            </div>
+
+            <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+              {productCategories.map((category, index) => (
+                <Link
+                  key={category.slug}
+                  to={`/products/${category.slug}`}
+                  className="trade-card group bg-white animate-reveal-up"
+                  style={{ animationDelay: `${index * 70}ms` }}
+                >
+                  <div className="relative h-72 overflow-hidden">
+                    <img
+                      src={category.image}
+                      alt={`${category.name} export category`}
+                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#121826]/88 via-[#121826]/18 to-transparent" />
+                    <span
+                      className="absolute left-4 top-4 bg-white px-3 py-1 text-xs font-bold text-[#121826]"
+                      style={{ borderRadius: "0.5rem" }}
+                    >
+                      {category.varieties.length} names
+                    </span>
+                    <div className="absolute bottom-5 left-5 right-5">
+                      <h3 className="text-3xl text-white">{category.name}</h3>
+                      <p className="mt-2 text-sm leading-6 text-white/72">{category.kicker}</p>
+                    </div>
+                  </div>
+
+                  <div className="p-5">
+                    <p className="text-sm leading-7 text-[#273244]/72">{category.description}</p>
+                    <div className="mt-5 flex flex-wrap gap-2">
+                      {category.varieties.slice(0, 4).map((variety) => (
+                        <span
+                          key={variety.slug}
+                          className="border border-[#121826]/10 bg-[#f5f8fb] px-3 py-1.5 text-xs font-bold text-[#273244]"
+                          style={{ borderRadius: "0.5rem" }}
+                        >
+                          {variety.name}
+                        </span>
+                      ))}
+                    </div>
+                    <div className="mt-6 inline-flex items-center gap-2 font-bold text-[#0a8f9c]">
+                      Open {category.name} page <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
+                    </div>
+                  </div>
+                </Link>
               ))}
             </div>
-            <p className="mt-6 text-xs italic" style={{ color: "rgba(75,46,43,0.45)" }}>Note: Export availability depends on government regulations and harvest seasons.</p>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* ── Trade Process ── */}
-      <section className="py-20" style={{ background: C.parchment }}>
-        <div className="container mx-auto px-4">
-          <SectionHeading title="Our Trade Process" subtitle="A streamlined approach for smooth global transactions" />
-          <div className="grid md:grid-cols-4 gap-8">
-            {[
-              { step: "01", title: "Inquiry", desc: "Share your requirements" },
-              { step: "02", title: "Quotation", desc: "Competitive pricing" },
-              { step: "03", title: "Agreement", desc: "Documentation & Terms" },
-              { step: "04", title: "Delivery", desc: "Timely global shipment" },
-            ].map((item, i) => (
-              <div key={i} className="text-center group">
-                <div
-                  className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 transition-transform group-hover:scale-110"
-                  style={{ background: `linear-gradient(135deg, ${C.espresso}, ${C.cognac})` }}
-                >
-                  <span className="font-bold text-xl" style={{ color: C.caramel }}>{item.step}</span>
+        <section className="border-y border-[#121826]/10 bg-white px-4 py-16">
+          <div className="container mx-auto grid gap-8 md:grid-cols-[0.9fr_1.1fr] md:items-center">
+            <div>
+              <span className="section-kicker">SEO worldwide content</span>
+              <h2 className="mt-3">Export products for importers across global markets</h2>
+            </div>
+            <div className="grid gap-4 sm:grid-cols-2">
+              {[
+                "Rice, spices, oil seeds, pulses and fresh produce sourced from India",
+                "Wholesale supply for distributors, food processors and retail packers",
+                "Private label packaging, buyer brand labels and bulk shipment support",
+                "Import export documentation, container planning and responsive trade communication",
+              ].map((item) => (
+                <div key={item} className="border-l-4 border-[#0a8f9c] bg-[#f5f8fb] p-4 text-sm font-semibold text-[#273244]">
+                  {item}
                 </div>
-                <h4 className="font-bold mb-2" style={{ color: C.espresso }}>{item.title}</h4>
-                <p className="text-sm" style={{ color: C.muted }}>{item.desc}</p>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+
+        <section className="bg-[#121826] px-4 py-16 text-white">
+          <div className="container mx-auto grid gap-8 md:grid-cols-[1fr_auto] md:items-center">
+            <div>
+              <span className="section-kicker text-white/78">Need a formal quote?</span>
+              <h2 className="mt-3 text-white">Send product, quantity, destination and packaging requirement.</h2>
+            </div>
+            <Link to="/contact" className="btn-accent">
+              Contact Sales <Globe2 size={17} />
+            </Link>
+          </div>
+        </section>
+      </main>
 
       <Footer />
-      <WhatsAppFloating />
-      <SocialSidebar />
     </div>
   );
 };

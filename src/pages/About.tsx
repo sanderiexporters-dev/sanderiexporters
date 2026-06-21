@@ -1,193 +1,208 @@
-import { Target, Eye, Heart, Award, Globe, Handshake, Shield, Clock } from "lucide-react";
-import Navbar from "@/components/Navbar";
+import { ArrowRight, BadgeCheck, Building2, Clock, Globe2, Handshake, ShieldCheck, Target } from "lucide-react";
+import { Link } from "react-router-dom";
 import Footer from "@/components/Footer";
-import SectionHeading from "@/components/SectionHeading";
-import aboutHeroImg from "@/assets/about-hero.jpg";
-import WhatsAppFloating from "@/components/WhatsAppFloating";
+import Navbar from "@/components/Navbar";
+import SEOMetadata from "@/components/SEOMetadata";
 import SocialSidebar from "@/components/SocialSidebar";
-
-const C = {
-  cream:    "#FFF8F0",
-  espresso: "#4B2E2B",
-  espressoDark: "#2D1A18",
-  cognac:   "#8C5A3C",
-  caramel:  "#C08552",
-  parchment:"#F5EDE3",
-  muted:    "rgba(75,46,43,0.68)",
-};
+import WhatsAppFloating from "@/components/WhatsAppFloating";
+import aboutHeroImg from "@/assets/ahmedabad office.jpg";
+import founderImg from "@/assets/founder.jpeg";
+import foundercopyImg from "@/assets/found - Copy.jpeg"
+import foundImg from "@/assets/found.jpeg";
+import foundersImg from "@/assets/founders.jpeg";
+import packagingImg from "@/assets/packaging desk.jpg";
+import { siteUrl } from "@/data/siteMetadata";
 
 const values = [
-  { icon: <Shield size={28} />, title: "Integrity", description: "We conduct all business with honesty and transparency, building lasting relationships based on trust." },
-  { icon: <Award size={28} />, title: "Quality", description: "We never compromise on quality, ensuring every product meets international standards." },
-  { icon: <Globe size={28} />, title: "Global Reach", description: "Our extensive network spans across continents, connecting markets worldwide." },
-  { icon: <Clock size={28} />, title: "Reliability", description: "Timely deliveries and consistent service you can always count on." },
+  {
+    icon: <ShieldCheck size={22} />,
+    title: "Trust-first trade",
+    text: "We keep communication clear, pricing practical and commitments realistic so buyers can plan confidently.",
+  },
+  {
+    icon: <BadgeCheck size={22} />,
+    title: "Quality focus",
+    text: "We align product selection, specifications and packing standards before dispatch.",
+  },
+  {
+    icon: <Globe2 size={22} />,
+    title: "Worldwide mindset",
+    text: "We support global importers, wholesalers, distributors and private label buyers with export-ready coordination.",
+  },
+  {
+    icon: <Clock size={22} />,
+    title: "Responsive execution",
+    text: "Fast replies and structured follow-up help buyers move from inquiry to shipment without confusion.",
+  },
 ];
 
 const About = () => {
   return (
-    <div className="min-h-screen" style={{ background: C.cream }}>
+    <div className="min-h-screen bg-[#f5f8fb]">
+      <SEOMetadata
+        title="About Sanderi Exporters - Import Export Company in India"
+        description="Sanderi Exporters is an Ahmedabad-based import-export company connecting global buyers with Indian agricultural products. We specialise in rice, spices, peanuts, sesame seeds, pulses and fresh produce with export-ready packaging and documentation."
+        keywords="Ahmedabad exporters, about Sanderi Exporters, import export company India, agricultural exporters Ahmedabad, rice exporter Ahmedabad"
+        url={`${siteUrl}/about-us`}
+        schema={{
+          "@context": "https://schema.org",
+          "@type": "AboutPage",
+          "@id": `${siteUrl}/about-us#webpage`,
+          name: "About Sanderi Exporters",
+          description:
+            "Company story, mission and values for Sanderi Exporters, an Ahmedabad based agricultural products exporter.",
+          url: `${siteUrl}/about-us`,
+          isPartOf: { "@id": `${siteUrl}/#website` },
+          publisher: { "@id": `${siteUrl}/#organization` },
+        }}
+      />
+
       <Navbar />
+      <SocialSidebar />
+      <WhatsAppFloating />
 
-      {/* ── Hero ── */}
-      <section className="relative pt-24 pb-16 md:pt-32 md:pb-24 overflow-hidden">
-        <div className="absolute inset-0">
-          <img src={aboutHeroImg} alt="About Us" className="w-full h-full object-cover" />
-          <div className="absolute inset-0" style={{ background: `linear-gradient(135deg, rgba(75,46,43,0.95), rgba(45,26,24,0.82))` }} />
-        </div>
-        <div className="relative container mx-auto px-4 text-center">
-          <span style={{ fontFamily: "'Cinzel', serif", fontSize: "0.65rem", letterSpacing: "0.25em", textTransform: "uppercase", color: C.caramel, display: "block", marginBottom: "1.25rem" }}>
-            Our Story
-          </span>
-          <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold mb-6 animate-slide-up" style={{ color: C.cream }}>
-            About <span style={{ color: C.caramel }}>Sanderi Exporters</span>
-          </h1>
-          <p className="text-lg max-w-2xl mx-auto animate-slide-up" style={{ animationDelay: "0.1s", color: "rgba(255,248,240,0.70)" }}>
-            Your trusted partner in international trade since 2010
-          </p>
-        </div>
-      </section>
+      <main>
+        <section className="relative min-h-[74vh] overflow-hidden px-4 pb-16 pt-32 text-white md:pt-40">
+          <div className="absolute inset-0">
+            <img src={aboutHeroImg} alt="Sanderi Exporters office and export trade story" className="h-full w-full object-cover" />
+            <div className="hero-overlay absolute inset-0" />
+            <div className="route-grid absolute inset-0" />
+            <span className="route-line left-[18%] top-[44%] w-60 rotate-6" />
+            <span className="route-line left-[52%] top-[64%] w-48 -rotate-12" style={{ animationDelay: "800ms" }} />
+          </div>
 
-      {/* ── Story Section ── */}
-      <section className="py-20" style={{ background: C.cream }}>
-        <div className="container mx-auto px-4">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <div className="container relative mx-auto">
+            <div className="max-w-4xl animate-reveal-up">
+              <span className="badge-premium">About Sanderi Exporters</span>
+              <h1 className="mt-6 text-5xl text-white md:text-7xl">A practical export partner for worldwide buyers.</h1>
+              <p className="mt-6 max-w-3xl text-lg leading-8 text-white/74">
+                Since 2010, Sanderi Exporters has helped international buyers source Indian products with better coordination, clear documentation support and export-ready packaging.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section className="px-4 py-20">
+          <div className="container mx-auto grid gap-12 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
             <div>
-              <span className="inline-block px-4 py-2 text-sm font-medium rounded-full mb-4" style={{ background: "rgba(192,133,82,0.10)", color: C.caramel }}>
-                Our Story
-              </span>
-              <h2 className="font-heading text-3xl md:text-4xl font-bold mb-6" style={{ color: C.espresso }}>
-                Building Bridges Across <span style={{ color: C.caramel }}>Borders</span>
-              </h2>
-              <p className="mb-4 leading-relaxed" style={{ color: C.muted }}>
-                Founded in 2010, Sanderi Exporters began with a simple vision: to connect quality products with global markets. What started as a small trading venture has grown into a comprehensive import-export enterprise serving clients across 50+ countries.
+              <span className="section-kicker">Our story</span>
+              <h2 className="mt-3">Built from sourcing discipline and buyer relationships</h2>
+              <p className="mt-5 text-base leading-8 text-[#273244]/74">
+                Sanderi Exporters began with a simple goal: help global buyers access dependable Indian products without confusion in sourcing, packaging or paperwork. Today, we support export requirements across rice, spices, oil seeds, peanuts, pulses, fresh produce and private label packaging.
               </p>
-              <p className="mb-4 leading-relaxed" style={{ color: C.muted }}>
-                Over the years, we have built a reputation for reliability, quality, and customer-centric service. Our team of experienced professionals works tirelessly to ensure smooth transactions, timely deliveries, and complete satisfaction for all our partners.
+              <p className="mt-4 text-base leading-8 text-[#273244]/74">
+                Our work is hands-on. We understand requirements, coordinate with suppliers, plan packaging, prepare documents and keep buyers updated. That practical approach is what makes us valuable for importers who need a supplier that behaves like a long-term trade partner.
               </p>
-              <p className="leading-relaxed" style={{ color: C.muted }}>
-                Today, we are proud to be a trusted name in international trade, handling diverse product categories from agricultural goods to industrial equipment, always maintaining our commitment to excellence.
+
+              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                <Link to="/products" className="btn-primary">
+                  View Product Categories <ArrowRight size={17} />
+                </Link>
+                <Link to="/contact" className="btn-light">
+                  Visit Contact Page
+                </Link>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <img src={founderImg} alt="Sanderi Exporters founder and team" className="h-65 w-full object-cover" style={{ borderRadius: "0.5rem" }} />
+              <img src={foundImg} alt="Sanderi Exporters office and trade operations" className="mt-10 h-64 w-full object-cover" style={{ borderRadius: "0.5rem" }} />
+              <img src={foundersImg} alt="Sanderi Exporters founders and team" className="col-span-2 h-56 w-full object-cover" style={{ borderRadius: "0.5rem" }} />
+            </div>
+          </div>
+        </section>
+
+        <section className="bg-white px-4 py-20">
+          <div className="container mx-auto">
+            <div className="mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+              <div>
+                <span className="section-kicker">Office and people</span>
+                <h2 className="mt-3">Photos area for your office and personal brand</h2>
+              </div>
+              <p className="max-w-xl text-sm leading-7 text-[#273244]/70">
+                This gallery is ready for your real office photos, team photos and founder photo. For now it uses project business images so the page still looks professional.
               </p>
             </div>
 
-            {/* Stats card */}
-            <div className="relative">
-              <div
-                className="rounded-2xl p-8 relative overflow-hidden"
-                style={{ background: C.parchment, border: "1px solid rgba(212,186,160,0.5)" }}
-              >
-                <div style={{ position: "absolute", top: 0, right: 0, width: 140, height: 140, borderRadius: "50%", background: "rgba(192,133,82,0.12)", transform: "translate(40%, -40%)" }} />
-                {/* Corner ornament */}
-                <div style={{ position: "absolute", bottom: 12, left: 12, width: 22, height: 22, borderBottom: `1.5px solid rgba(192,133,82,0.4)`, borderLeft: `1.5px solid rgba(192,133,82,0.4)` }} />
-
-                <div className="relative space-y-6">
-                  {[
-                    { icon: <Award size={22} style={{ color: C.caramel }} />, title: "15+ Years of Excellence", desc: "Trusted by businesses worldwide" },
-                    { icon: <Globe size={22} style={{ color: C.caramel }} />, title: "Global Network", desc: "Operations in 50+ countries" },
-                    { icon: <Handshake size={22} style={{ color: C.caramel }} />, title: "500+ Happy Clients", desc: "Long-term partnerships built on trust" },
-                  ].map((item, i) => (
-                    <div key={i} className="flex items-start gap-4">
-                      <div className="w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0" style={{ background: `linear-gradient(135deg, ${C.espresso}, ${C.cognac})` }}>
-                        {item.icon}
-                      </div>
-                      <div>
-                        <h4 className="font-semibold mb-1" style={{ color: C.espresso }}>{item.title}</h4>
-                        <p className="text-sm" style={{ color: C.muted }}>{item.desc}</p>
-                      </div>
-                    </div>
-                  ))}
+            <div className="grid gap-5 md:grid-cols-4">
+              {[
+                { image: aboutHeroImg, title: "Ahmedabad office", text: "Trade coordination and buyer communication" },
+                { image: foundercopyImg, title: "Operations network", text: "Supplier and dispatch follow-up" },
+                { image: packagingImg, title: "Packaging desk", text: "Bulk, retail and private label planning" },
+                { image: foundersImg, title: "Founder vision", text: "Worldwide sourcing with practical execution" },
+              ].map((item) => (
+                <div key={item.title} className="trade-card bg-white">
+                  <img src={item.image} alt={item.title} className="h-56 w-full object-cover" />
+                  <div className="p-5">
+                    <h3 className="text-xl">{item.title}</h3>
+                    <p className="mt-2 text-sm leading-6 text-[#273244]/70">{item.text}</p>
+                  </div>
                 </div>
-              </div>
+              ))}
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* ── Mission & Vision ── */}
-      <section className="py-20" style={{ background: `linear-gradient(145deg, ${C.espresso}, ${C.espressoDark})` }}>
-        <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-2 gap-8">
+        <section className="px-4 py-20">
+          <div className="container mx-auto">
+            <div className="mb-10 text-center">
+              <span className="section-kicker justify-center">Why buyers trust us</span>
+              <h2 className="mx-auto mt-3 max-w-3xl">Clear values for international import export work</h2>
+            </div>
+
+            <div className="grid gap-5 md:grid-cols-4">
+              {values.map((value, index) => (
+                <div key={value.title} className="trade-card bg-white p-6 animate-reveal-up" style={{ animationDelay: `${index * 80}ms` }}>
+                  <div className="flex h-12 w-12 items-center justify-center bg-[#0a8f9c] text-white" style={{ borderRadius: "0.5rem" }}>
+                    {value.icon}
+                  </div>
+                  <h3 className="mt-5 text-2xl">{value.title}</h3>
+                  <p className="mt-3 text-sm leading-7 text-[#273244]/70">{value.text}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="bg-[#121826] px-4 py-20 text-white">
+          <div className="container mx-auto grid gap-8 md:grid-cols-2">
             {[
               {
-                icon: <Target size={32} style={{ color: C.caramel }} />,
-                title: "Our Mission",
-                text: "To facilitate seamless international trade by providing reliable, efficient, and quality-focused import-export services. We aim to be the preferred partner for businesses seeking to expand their global footprint, delivering value through excellence in every transaction.",
+                icon: <Target size={24} />,
+                title: "Mission",
+                text: "To make Indian export sourcing easier for worldwide buyers through product clarity, practical documentation support, dependable packaging and honest communication.",
               },
               {
-                icon: <Eye size={32} style={{ color: C.caramel }} />,
-                title: "Our Vision",
-                text: "To become a global leader in import-export solutions, recognized for our integrity, innovation, and commitment to customer success. We envision a world where trade barriers are minimized, and businesses of all sizes can access international markets with confidence.",
+                icon: <Handshake size={24} />,
+                title: "Vision",
+                text: "To grow Sanderi Exporters as a trusted global trade partner for agricultural products, private label packaging and long-term buyer relationships.",
               },
-            ].map((card, i) => (
-              <div
-                key={i}
-                className="rounded-2xl p-8 md:p-10"
-                style={{ background: "rgba(255,248,240,0.07)", border: "1px solid rgba(255,248,240,0.10)", backdropFilter: "blur(4px)" }}
-              >
-                <div className="w-16 h-16 rounded-xl flex items-center justify-center mb-6" style={{ background: "rgba(192,133,82,0.15)", border: "1px solid rgba(192,133,82,0.25)" }}>
-                  {card.icon}
+            ].map((item) => (
+              <div key={item.title} className="border border-white/14 bg-white/8 p-8" style={{ borderRadius: "0.5rem" }}>
+                <div className="flex h-12 w-12 items-center justify-center bg-[#f59e0b] text-[#121826]" style={{ borderRadius: "0.5rem" }}>
+                  {item.icon}
                 </div>
-                <h3 className="font-heading text-2xl font-bold mb-4" style={{ color: C.cream }}>{card.title}</h3>
-                <p style={{ color: "rgba(255,248,240,0.72)", lineHeight: 1.8 }}>{card.text}</p>
+                <h2 className="mt-6 text-3xl text-white">{item.title}</h2>
+                <p className="mt-4 text-base leading-8 text-white/70">{item.text}</p>
               </div>
             ))}
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* ── Core Values ── */}
-      <section className="py-20" style={{ background: C.cream }}>
-        <div className="container mx-auto px-4">
-          <SectionHeading title="Our Core Values" subtitle="The principles that guide everything we do at Sanderi Exporters" />
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {values.map((value, i) => (
-              <div
-                key={i}
-                className="rounded-xl p-6 text-center shadow-md transition-all duration-300"
-                style={{ background: C.parchment, border: "1px solid rgba(212,186,160,0.5)" }}
-                onMouseEnter={(e) => { (e.currentTarget as HTMLDivElement).style.transform = "translateY(-5px)"; (e.currentTarget as HTMLDivElement).style.boxShadow = "0 12px 28px rgba(75,46,43,0.12)"; }}
-                onMouseLeave={(e) => { (e.currentTarget as HTMLDivElement).style.transform = "translateY(0)"; (e.currentTarget as HTMLDivElement).style.boxShadow = "0 4px 12px rgba(75,46,43,0.06)"; }}
-              >
-                <div className="w-14 h-14 rounded-xl flex items-center justify-center mx-auto mb-4" style={{ background: "rgba(192,133,82,0.10)", color: C.caramel }}>
-                  {value.icon}
-                </div>
-                <h4 className="font-heading font-semibold text-lg mb-2" style={{ color: C.espresso }}>{value.title}</h4>
-                <p className="text-sm" style={{ color: C.muted }}>{value.description}</p>
-              </div>
-            ))}
+        <section className="px-4 py-20">
+          <div className="container mx-auto grid gap-8 md:grid-cols-[1fr_auto] md:items-center">
+            <div>
+              <span className="section-kicker">Worldwide import export partner</span>
+              <h2 className="mt-3 max-w-4xl">Ready to discuss product sourcing, MOQ, packaging or export documents?</h2>
+            </div>
+            <Link to="/contact" className="btn-primary">
+              Contact Sanderi Exporters <ArrowRight size={17} />
+            </Link>
           </div>
-        </div>
-      </section>
-
-      {/* ── Why Choose Us ── */}
-      <section className="py-20" style={{ background: C.parchment }}>
-        <div className="container mx-auto px-4">
-          <SectionHeading title="Why Choose Sanderi Exporters?" subtitle="We go above and beyond to ensure your success in international trade" />
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[
-              { title: "Expert Team", description: "Our experienced professionals understand the complexities of international trade and provide expert guidance." },
-              { title: "Quality Assurance", description: "Rigorous quality checks at every step ensure you receive only the best products." },
-              { title: "Competitive Pricing", description: "We leverage our global network to offer the most competitive rates in the market." },
-              { title: "Timely Delivery", description: "Our efficient logistics ensure your shipments arrive on time, every time." },
-              { title: "Documentation Support", description: "Complete assistance with all trade documentation and compliance requirements." },
-              { title: "Customer Focus", description: "Your success is our priority. We provide personalized service tailored to your needs." },
-            ].map((item, i) => (
-              <div key={i} className="flex gap-4">
-                <div className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 mt-1" style={{ background: `linear-gradient(135deg, ${C.caramel}, #D4A06A)` }}>
-                  <Heart size={16} style={{ color: C.cream }} />
-                </div>
-                <div>
-                  <h4 className="font-semibold mb-2" style={{ color: C.espresso }}>{item.title}</h4>
-                  <p className="text-sm" style={{ color: C.muted }}>{item.description}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+        </section>
+      </main>
 
       <Footer />
-      <WhatsAppFloating />
-      <SocialSidebar />
     </div>
   );
 };

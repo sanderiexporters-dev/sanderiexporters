@@ -1,218 +1,224 @@
-import { useState, useEffect } from "react";
+import { ArrowRight, BadgeCheck, Clock, FileCheck, Globe2, Handshake, PackageCheck, ShieldCheck, Ship, Sparkles, Truck } from "lucide-react";
+import { Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import SectionHeading from "@/components/SectionHeading";
-import { Star, Quote, ChevronLeft, ChevronRight, Award, ShieldCheck, ClipboardCheck, Globe, Zap, Users, Shield, TrendingUp, BarChart3 } from "lucide-react";
-import WhatsAppFloating from "@/components/WhatsAppFloating";
+import SEOMetadata from "@/components/SEOMetadata";
 import SocialSidebar from "@/components/SocialSidebar";
-
-const C = {
-  cream:    "#FFF8F0",
-  espresso: "#4B2E2B",
-  espressoDark: "#2D1A18",
-  cognac:   "#8C5A3C",
-  caramel:  "#C08552",
-  parchment:"#F5EDE3",
-  muted:    "rgba(75,46,43,0.68)",
-};
-
-const whyChooseUs = [
-  { title: "Unmatched Quality Control", description: "Every product undergoes a rigorous 3-stage quality check to ensure it meets international export standards before shipment.", icon: <ShieldCheck size={32} style={{ color: C.caramel }} /> },
-  { title: "Global Network", description: "With a distribution presence in over 50 countries, we navigate complex international trade routes with ease and efficiency.", icon: <Globe size={32} style={{ color: C.caramel }} /> },
-  { title: "Competitive Pricing", description: "Our direct sourcing from farmers and manufacturers allows us to provide premium products at highly competitive market rates.", icon: <TrendingUp size={32} style={{ color: C.caramel }} /> },
-  { title: "Customer-Centric Approach", description: "We provide dedicated account managers for every client, ensuring personalized service and 24/7 communication.", icon: <Users size={32} style={{ color: C.caramel }} /> },
-  { title: "Fast & Reliable Logistics", description: "Our tie-ups with global shipping leaders ensure that your consignments reach you on time, every single time.", icon: <Zap size={32} style={{ color: C.caramel }} /> },
-  { title: "Transparent Operations", description: "From real-time tracking to clear documentation, we believe in keeping our partners informed at every step of the trade.", icon: <BarChart3 size={32} style={{ color: C.caramel }} /> },
+import WhatsAppFloating from "@/components/WhatsAppFloating";
+import heroImg from "@/assets/agriculture.jpg";
+import packagingImg from "@/assets/packaging desk.jpg";
+import rawMaterialsImg from "@/assets/supplier coordination.png";
+import machineryImg from "@/assets/operation followup.jpg";
+import aboutHeroImg from "@/assets/buyer support.png";
+import { siteUrl } from "@/data/siteMetadata";
+//
+const reasons = [
+  {
+    icon: <ShieldCheck size={24} />,
+    title: "Quality-first sourcing",
+    text: "Product selection is matched with buyer specifications, export suitability and repeat supply requirements before shipment planning.",
+  },
+  {
+    icon: <FileCheck size={24} />,
+    title: "Clear documentation",
+    text: "Commercial invoice, packing list details and export coordination are handled with practical communication at each stage.",
+  },
+  {
+    icon: <Globe2 size={24} />,
+    title: "Worldwide buyer mindset",
+    text: "We support importers, distributors, wholesalers, processors and private label buyers across global trade channels.",
+  },
+  {
+    icon: <Clock size={24} />,
+    title: "Fast response rhythm",
+    text: "Structured replies, MOQ guidance and packaging clarity help buyers move quickly from inquiry to quote.",
+  },
+  {
+    icon: <PackageCheck size={24} />,
+    title: "Packaging flexibility",
+    text: "Bulk bags, cartons, retail packs and buyer-brand packaging are planned around the product and destination market.",
+  },
+  {
+    icon: <Handshake size={24} />,
+    title: "Long-term trade focus",
+    text: "We work like a practical sourcing desk, not a one-time seller, so repeat buyers get cleaner coordination.",
+  },
 ];
 
-const reviews = [
-  { name: "Global Traders Inc.", country: "UAE", text: "Working with Sanderi has been a game changer. Their attention to quality and shipping timelines is unparalleled in the industry.", stars: 5 },
-  { name: "Green Earth Organics", country: "Singapore", text: "Reliable and compliant. Their certifications give our food products the edge in ASEAN markets.", stars: 5 },
-  { name: "Apex Industrial", country: "Germany", text: "The team is professional and the logistics are seamless. We've seen a significant reduction in lead times.", stars: 4 },
-  { name: "Loom & Thread", country: "UK", text: "Excellent communication and premium product quality. They truly understand the needs of global markets.", stars: 5 },
-  { name: "Spice Route Ltd", country: "USA", text: "Their purity standards are top-notch. Our spices remained fresh and aromatic throughout the long sea transit.", stars: 5 },
-  { name: "TechNova Solutions", country: "Australia", text: "Professionalism at its best. Very satisfied with their attention to detail and partnership-driven approach.", stars: 5 },
-];
-
-const certifications = [
-  { title: "ISO 9001:2015", subtitle: "Quality Management System", valid: "Valid 2026", icon: <Award size={38} style={{ color: C.caramel }} /> },
-  { title: "FSSAI Certified", subtitle: "Food Safety Standards", valid: "Valid 2026", icon: <ShieldCheck size={38} style={{ color: C.caramel }} /> },
-  { title: "APEDA Registered", subtitle: "Agricultural Export Authority", valid: "Valid 2026", icon: <Globe size={38} style={{ color: C.caramel }} /> },
-  { title: "GMP Certified", subtitle: "Good Manufacturing Practice", valid: "Valid 2026", icon: <ClipboardCheck size={38} style={{ color: C.caramel }} /> },
+const operations = [
+  {
+    image: rawMaterialsImg,
+    title: "Supplier coordination",
+    text: "Sourcing across agricultural categories with clear quantity, grade and packing expectations.",
+  },
+  {
+    image: packagingImg,
+    title: "Packaging desk",
+    text: "Bulk, retail and private label packing options for importers and wholesale buyers.",
+  },
+  {
+    image: machineryImg,
+    title: "Operational follow-up",
+    text: "Dispatch planning, shipment readiness and export communication across every order stage.",
+  },
+  {
+    image: aboutHeroImg,
+    title: "Buyer support",
+    text: "Responsive communication for pricing, product details, samples and formal quote requests.",
+  },
 ];
 
 const WhyChooseUs = () => {
-  const [activeReview, setActiveReview] = useState(0);
-  const nextReview = () => setActiveReview((p) => (p === reviews.length - 1 ? 0 : p + 1));
-  const prevReview = () => setActiveReview((p) => (p === 0 ? reviews.length - 1 : p - 1));
-
-  useEffect(() => {
-    const timer = setInterval(nextReview, 5000);
-    return () => clearInterval(timer);
-  }, []);
-
   return (
-    <div className="min-h-screen" style={{ background: C.cream }}>
+    <div className="min-h-screen bg-[#f5f8fb]">
+      <SEOMetadata
+        title="Why Choose Sanderi Exporters"
+        description="Ahmedabad-based Sanderi Exporters - a trusted import-export partner for agricultural buyers. We provide export-ready rice, spices, peanuts, sesame seeds and fresh produce with packaging, quality checks and documentation for UAE, Europe, Africa and global importers."
+        keywords="Ahmedabad export partner, import export Ahmedabad, agricultural exporters India, rice exporters Ahmedabad, spices exporters Ahmedabad, Dubai importers, export documentation India"
+        url={`${siteUrl}/why-choose-us`}
+        schema={{
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          "@id": `${siteUrl}/why-choose-us#webpage`,
+          name: "Why Choose Sanderi Exporters",
+          description:
+            "Reasons global importers choose Sanderi Exporters for agricultural products from India.",
+          url: `${siteUrl}/why-choose-us`,
+          isPartOf: { "@id": `${siteUrl}/#website` },
+          publisher: { "@id": `${siteUrl}/#organization` },
+        }}
+      />
+
       <Navbar />
+      <SocialSidebar />
+      <WhatsAppFloating />
 
-      {/* ── Hero ── */}
-      <section
-        className="relative pt-24 pb-16 md:pt-32 md:pb-24 overflow-hidden text-center"
-        style={{ background: `linear-gradient(145deg, ${C.espresso}, ${C.espressoDark})` }}
-      >
-        <div style={{ position: "absolute", top: "-15%", right: "-5%", width: 340, height: 340, borderRadius: "50%", background: "radial-gradient(circle,rgba(192,133,82,0.10) 0%,transparent 70%)", pointerEvents: "none" }} />
-        <div style={{ position: "absolute", bottom: "-15%", left: "-5%", width: 240, height: 240, borderRadius: "50%", background: "radial-gradient(circle,rgba(192,133,82,0.08) 0%,transparent 70%)", pointerEvents: "none" }} />
-        <div className="relative container mx-auto px-4">
-          <span style={{ fontFamily: "'Cinzel', serif", fontSize: "0.65rem", letterSpacing: "0.25em", textTransform: "uppercase", color: C.caramel, display: "block", marginBottom: "1.25rem" }}>
-            Our Advantage
-          </span>
-          <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold mb-6 animate-slide-up" style={{ color: C.cream }}>
-            Why Partner with <span style={{ color: C.caramel }}>Sanderi?</span>
-          </h1>
-          <p className="text-lg max-w-2xl mx-auto animate-slide-up" style={{ animationDelay: "0.1s", color: "rgba(255,248,240,0.70)" }}>
-            Experience excellence in global trade with a partner committed to quality, trust, and seamless logistics.
-          </p>
-        </div>
-      </section>
-
-      {/* ── Certifications ── */}
-      <section className="py-12 border-b" style={{ background: C.parchment, borderColor: "rgba(212,186,160,0.4)" }}>
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
-            {certifications.map((cert, i) => (
-              <div key={i} className="flex flex-col items-center text-center p-4 rounded-xl" style={{ background: C.cream, border: "1px solid rgba(212,186,160,0.5)", boxShadow: "0 2px 12px rgba(75,46,43,0.06)" }}>
-                <div className="mb-4 p-3 rounded-full" style={{ background: "rgba(192,133,82,0.08)" }}>{cert.icon}</div>
-                <h4 className="font-bold text-sm md:text-base" style={{ color: C.espresso }}>{cert.title}</h4>
-                <p className="text-xs" style={{ color: C.muted }}>{cert.subtitle}</p>
-                <span className="mt-2 text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded" style={{ color: C.caramel, background: "rgba(192,133,82,0.10)" }}>
-                  {cert.valid}
-                </span>
-              </div>
-            ))}
+      <main>
+        <section className="relative min-h-[78vh] overflow-hidden px-4 pb-16 pt-32 text-white md:pt-40">
+          <div className="absolute inset-0">
+            <img src={heroImg} alt="Sanderi Exporters trusted import export operations" className="h-full w-full object-cover" />
+            <div className="hero-overlay absolute inset-0" />
+            <div className="route-grid absolute inset-0" />
+            <span className="route-line left-[13%] top-[36%] w-56 rotate-6" />
+            <span className="route-line left-[48%] top-[57%] w-52 -rotate-12" style={{ animationDelay: "800ms" }} />
           </div>
-        </div>
-      </section>
 
-      {/* ── Why Choose Grid ── */}
-      <section className="py-20" style={{ background: C.cream }}>
-        <div className="container mx-auto px-4">
-          <SectionHeading title="What Sets Us Apart" subtitle="We go beyond just exports. We build long-term international partnerships through reliable performance." />
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {whyChooseUs.map((item, i) => (
-              <div
-                key={i}
-                className="p-8 rounded-2xl shadow-md animate-slide-up transition-all duration-300"
-                style={{ background: C.parchment, border: "1px solid rgba(212,186,160,0.5)", animationDelay: `${i * 0.1}s`, borderTop: `3px solid ${C.caramel}` }}
-                onMouseEnter={(e) => { (e.currentTarget as HTMLDivElement).style.transform = "translateY(-5px)"; (e.currentTarget as HTMLDivElement).style.boxShadow = "0 12px 32px rgba(75,46,43,0.12)"; }}
-                onMouseLeave={(e) => { (e.currentTarget as HTMLDivElement).style.transform = "translateY(0)"; (e.currentTarget as HTMLDivElement).style.boxShadow = "0 4px 12px rgba(75,46,43,0.06)"; }}
-              >
-                <div className="mb-4 w-16 h-16 rounded-2xl flex items-center justify-center" style={{ background: "rgba(192,133,82,0.10)" }}>
-                  {item.icon}
-                </div>
-                <h4 className="font-heading font-bold text-xl mb-3" style={{ color: C.espresso }}>{item.title}</h4>
-                <p style={{ color: C.muted, lineHeight: 1.75 }}>{item.description}</p>
+          <div className="container relative mx-auto">
+            <div className="max-w-5xl animate-reveal-up">
+              <span className="badge-premium">Why choose Sanderi Exporters</span>
+              <h1 className="mt-6 max-w-5xl text-5xl text-white md:text-7xl">
+                A sharper trade partner for serious worldwide buyers.
+              </h1>
+              <p className="mt-6 max-w-3xl text-lg leading-8 text-white/76">
+                We combine product sourcing, packaging clarity, documentation coordination and responsive communication so importers can buy from India with more confidence.
+              </p>
+              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                <Link to="/products" className="btn-accent">
+                  Explore Product Desk <ArrowRight size={17} />
+                </Link>
+                <Link to="/contact" className="btn-outline">
+                  Talk to Export Team <Ship size={17} />
+                </Link>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── Reviews Slider ── */}
-      <section className="py-20 overflow-hidden" style={{ background: C.parchment }}>
-        <div className="container mx-auto px-4">
-          <SectionHeading title="Client Reviews" subtitle="Trusted by businesses across the globe for our consistency and quality" />
-          <div className="relative max-w-4xl mx-auto mt-12">
-            <div className="relative p-8 md:p-12 rounded-3xl" style={{ background: C.cream, border: "1px solid rgba(212,186,160,0.5)", boxShadow: "0 12px 32px rgba(75,46,43,0.10)" }}>
-              <Quote size={60} style={{ position: "absolute", top: 24, left: 24, color: "rgba(192,133,82,0.15)" }} />
-              <div className="relative z-10 text-center">
-                <div className="flex justify-center gap-1 mb-6">
-                  {[...Array(reviews[activeReview].stars)].map((_, i) => (
-                    <Star key={i} size={20} style={{ fill: C.caramel, color: C.caramel }} />
-                  ))}
-                </div>
-                <p className="text-xl md:text-2xl font-medium italic mb-8" style={{ color: C.espresso, lineHeight: 1.7 }}>
-                  "{reviews[activeReview].text}"
-                </p>
-                <div>
-                  <h4 className="font-bold text-lg" style={{ color: C.espresso }}>{reviews[activeReview].name}</h4>
-                  <p style={{ color: C.cognac }}>{reviews[activeReview].country}</p>
-                </div>
-              </div>
-              <button onClick={prevReview} className="absolute left-2 top-1/2 -translate-y-1/2 p-2 rounded-full transition-colors" style={{ color: C.cognac, background: "transparent", border: "none", cursor: "pointer" }}
-                onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(192,133,82,0.10)")}
-                onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
-              ><ChevronLeft size={32} /></button>
-              <button onClick={nextReview} className="absolute right-2 top-1/2 -translate-y-1/2 p-2 rounded-full transition-colors" style={{ color: C.cognac, background: "transparent", border: "none", cursor: "pointer" }}
-                onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(192,133,82,0.10)")}
-                onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
-              ><ChevronRight size={32} /></button>
             </div>
-            <div className="flex justify-center gap-2 mt-8">
-              {reviews.map((_, i) => (
-                <button key={i} onClick={() => setActiveReview(i)} style={{ height: 8, width: activeReview === i ? 32 : 8, borderRadius: 4, background: activeReview === i ? C.caramel : "rgba(192,133,82,0.30)", border: "none", cursor: "pointer", transition: "all 0.3s ease" }} />
+          </div>
+        </section>
+
+        <section className="px-4 py-20">
+          <div className="container mx-auto">
+            <div className="mb-10 grid gap-5 md:grid-cols-[0.9fr_1.1fr] md:items-end">
+              <div>
+                <span className="section-kicker">Competitive advantages</span>
+                <h2 className="mt-3">What makes the buying process smoother</h2>
+              </div>
+              <p className="text-sm leading-7 text-[#273244]/72">
+                Import export work needs speed, detail and trust. These are the practical reasons buyers choose us for agricultural products and packaging support.
+              </p>
+            </div>
+
+            <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+              {reasons.map((reason, index) => (
+                <div key={reason.title} className="trade-card bg-white p-6 animate-reveal-up" style={{ animationDelay: `${index * 70}ms` }}>
+                  <div className="flex h-12 w-12 items-center justify-center bg-[#0a8f9c] text-white" style={{ borderRadius: "0.5rem" }}>
+                    {reason.icon}
+                  </div>
+                  <h3 className="mt-5 text-2xl">{reason.title}</h3>
+                  <p className="mt-3 text-sm leading-7 text-[#273244]/70">{reason.text}</p>
+                </div>
               ))}
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* ── Core Values ── */}
-      <section className="py-20" style={{ background: `linear-gradient(145deg, ${C.espresso}, ${C.espressoDark})` }}>
-        <div className="container mx-auto px-4">
-          <SectionHeading title="Our Core Values" subtitle="The principles that guide our every transaction and international shipment" light />
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[
-              "Absolute Integrity in Documentation",
-              "Uncompromising Product Quality",
-              "Ethical Sourcing from Direct Farmers",
-              "On-time Delivery Schedules",
-              "Sustainable Trade Practices",
-              "Regulatory Compliance (FDA, FSSAI)",
-              "Innovative Logistics Solutions",
-              "Risk Mitigation Strategies",
-              "Long-term Partnership Focus",
-            ].map((value, i) => (
-              <div key={i} className="flex items-center gap-3 rounded-lg p-4" style={{ background: "rgba(255,248,240,0.07)", border: "1px solid rgba(255,248,240,0.08)" }}>
-                <ShieldCheck size={20} style={{ color: C.caramel, flexShrink: 0 }} />
-                <span className="font-medium" style={{ color: "rgba(255,248,240,0.88)" }}>{value}</span>
+        <section className="bg-white px-4 py-20">
+          <div className="container mx-auto">
+            <div className="mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+              <div>
+                <span className="section-kicker">Operational strengths</span>
+                <h2 className="mt-3">From product desk to dispatch desk</h2>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
+              <p className="max-w-xl text-sm leading-7 text-[#273244]/70">
+                The website now uses real business visuals from the project assets, giving every page a stronger import-export identity.
+              </p>
+            </div>
 
-      {/* ── Workflow ── */}
-      <section className="py-20" style={{ background: C.cream }}>
-        <div className="container mx-auto px-4">
-          <SectionHeading title="Seamless Export Workflow" subtitle="Our systematic approach ensures your trade orders are executed flawlessly" />
-          <div className="max-w-4xl mx-auto">
-            {[
-              { step: "01", title: "Inquiry & Quotation", desc: "Detailed understanding of your requirements followed by transparent, competitive market pricing." },
-              { step: "02", title: "Sourcing & Quality Check", desc: "Procurement from premium sources and rigorous testing against international safety standards." },
-              { step: "03", title: "Compliance & Documentation", desc: "Expert handling of all legal paperwork including IEC, GST, and custom export documents." },
-              { step: "04", title: "Secure Shipment", desc: "Container-optimized loading and shipping via trusted global logistics partners." },
-              { step: "05", title: "Destination Delivery", desc: "Final clearance support and tracking until the consignment reaches your warehouse." },
-            ].map((item, i) => (
-              <div key={i} className="flex gap-6 mb-8 last:mb-0">
-                <div className="flex flex-col items-center">
-                  <div className="w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0" style={{ background: `linear-gradient(135deg, ${C.espresso}, ${C.cognac})` }}>
-                    <span className="font-bold" style={{ color: C.caramel }}>{item.step}</span>
+            <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+              {operations.map((operation, index) => (
+                <div key={operation.title} className="trade-card bg-white animate-reveal-up" style={{ animationDelay: `${index * 80}ms` }}>
+                  <img src={operation.image} alt={operation.title} className="h-56 w-full object-cover" />
+                  <div className="p-5">
+                    <h3 className="text-xl">{operation.title}</h3>
+                    <p className="mt-2 text-sm leading-6 text-[#273244]/70">{operation.text}</p>
                   </div>
-                  {i < 4 && <div style={{ width: 1.5, flex: 1, background: "rgba(192,133,82,0.25)", marginTop: 8 }} />}
                 </div>
-                <div className="flex-1 pb-8">
-                  <h4 className="font-heading font-semibold text-lg mb-2" style={{ color: C.espresso }}>{item.title}</h4>
-                  <p style={{ color: C.muted }}>{item.desc}</p>
-                </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+
+        <section className="px-4 py-20">
+          <div className="container mx-auto grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+            <div>
+              <span className="section-kicker">Transparent workflow</span>
+              <h2 className="mt-3">Four steps that keep export buying clean</h2>
+              <p className="mt-5 text-base leading-8 text-[#273244]/72">
+                Buyers get clarity on product names, quantity, packaging and export planning before moving forward. That keeps the process simple and professional.
+              </p>
+            </div>
+
+            <div className="grid gap-4 sm:grid-cols-2">
+              {[
+                { icon: <Sparkles size={22} />, title: "Requirement", text: "Product, grade, quantity, destination and packaging details." },
+                { icon: <BadgeCheck size={22} />, title: "Quotation", text: "MOQ, availability, pricing direction and packing options." },
+                { icon: <PackageCheck size={22} />, title: "Preparation", text: "Sourcing, packing coordination and document planning." },
+                { icon: <Truck size={22} />, title: "Shipment", text: "Dispatch communication and buyer-side coordination." },
+              ].map((step, index) => (
+                <div key={step.title} className="border border-[#121826]/10 bg-white p-5 animate-reveal-up" style={{ borderRadius: "0.5rem", animationDelay: `${index * 70}ms` }}>
+                  <div className="mb-4 flex h-11 w-11 items-center justify-center bg-[#f59e0b] text-[#121826]" style={{ borderRadius: "0.5rem" }}>
+                    {step.icon}
+                  </div>
+                  <h3 className="text-xl">{step.title}</h3>
+                  <p className="mt-2 text-sm leading-6 text-[#273244]/70">{step.text}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="bg-[#121826] px-4 py-16 text-white">
+          <div className="container mx-auto grid gap-8 md:grid-cols-[1fr_auto] md:items-center">
+            <div>
+              <span className="section-kicker text-white/78">Ready for a dependable supplier?</span>
+              <h2 className="mt-3 max-w-4xl text-white">Share your product requirement and get practical export guidance.</h2>
+            </div>
+            <Link to="/contact" className="btn-accent">
+              Request a Quote <ArrowRight size={17} />
+            </Link>
+          </div>
+        </section>
+      </main>
 
       <Footer />
-      <WhatsAppFloating />
-      <SocialSidebar />
     </div>
   );
 };

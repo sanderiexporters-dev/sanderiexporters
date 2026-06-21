@@ -1,13 +1,13 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X } from "lucide-react";
+import { ArrowRight, Menu, X } from "lucide-react";
 import Logo from "./Logo";
 
 const navLinks = [
   { name: "Home", path: "/" },
   { name: "About Us", path: "/about-us" },
   { name: "Products", path: "/products" },
-  { name: "WhyChooseUs", path: "/WhyChooseUs" },
+  { name: "Why Choose Us", path: "/why-choose-us" },
   { name: "Feedback", path: "/feedback" },
   { name: "Contact", path: "/contact" },
 ];
@@ -18,128 +18,127 @@ const Navbar = () => {
   const location = useLocation();
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 20);
+    const handleScroll = () => setIsScrolled(window.scrollY > 18);
+    handleScroll();
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    setIsOpen(false);
+  }, [location.pathname]);
+
+  const isHeroRoute = location.pathname === "/";
+  const transparent = isHeroRoute && !isScrolled && !isOpen;
+
+  const isActivePath = (path: string) => {
+    if (path === "/products") {
+      return location.pathname === "/products" || location.pathname.startsWith("/products/");
+    }
+
+    if (path === "/why-choose-us") {
+      return location.pathname === "/why-choose-us" || location.pathname === "/WhyChooseUs";
+    }
+
+    return location.pathname === path;
+  };
+
   return (
-    <>
-      <nav
-        className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
+    <nav className="fixed inset-x-0 top-0 z-50 px-4 pt-4">
+      <div
+        className="container mx-auto border px-4 py-3 shadow-lg backdrop-blur-xl transition-all duration-300 md:px-5"
         style={{
-          background: isScrolled ? "rgba(255,248,240,0.96)" : "transparent",
-          backdropFilter: isScrolled ? "blur(12px)" : "none",
-          boxShadow: isScrolled ? "0 2px 20px rgba(75,46,43,0.10)" : "none",
-          padding: isScrolled ? "0.5rem 0" : "1rem 0",
-          borderBottom: isScrolled ? "1px solid rgba(212,186,160,0.35)" : "none",
+          borderRadius: "0.5rem",
+          background: transparent ? "rgba(18, 24, 38, 0.48)" : "rgba(255, 255, 255, 0.92)",
+          borderColor: transparent ? "rgba(255, 255, 255, 0.14)" : "rgba(18, 24, 38, 0.12)",
         }}
       >
-        <div className="container mx-auto px-4">
-          <div className="flex items-center justify-between">
-            {/* Logo */}
-            <Link to="/">
-              <Logo variant={isScrolled ? "dark" : "light"} />
-            </Link>
+        <div className="flex items-center justify-between gap-4">
+          <Link to="/" aria-label="Sanderi Exporters home">
+            <Logo variant={transparent ? "light" : "dark"} />
+          </Link>
 
-            {/* Desktop links */}
-            <div className="hidden lg:flex items-center gap-8">
+          <div className="hidden items-center gap-6 lg:flex">
+            {navLinks.map((link) => {
+              const active = isActivePath(link.path);
+              return (
+                <Link
+                  key={link.path}
+                  to={link.path}
+                  className="relative text-sm font-bold transition-colors"
+                  style={{
+                    color: active ? "var(--solar)" : transparent ? "rgba(255,255,255,0.82)" : "rgba(18,24,38,0.78)",
+                  }}
+                >
+                  {link.name}
+                  <span
+                    className="absolute -bottom-2 left-0 h-0.5 transition-all duration-300"
+                    style={{
+                      width: active ? "100%" : "0%",
+                      background: active ? "var(--solar)" : "var(--teal)",
+                    }}
+                  />
+                </Link>
+              );
+            })}
+            <div className="ml-4 hidden items-center gap-2 text-sm text-[#273244]/70 lg:flex">
+              <span className="font-semibold">Ahmedabad</span>
+              <span>•</span>
+              <span>India</span>
+            </div>
+          </div>
+
+          <div className="hidden lg:flex">
+            <Link to="/contact" className={transparent ? "btn-outline" : "btn-primary"}>
+              Request Quote <ArrowRight size={16} />
+            </Link>
+          </div>
+
+          <button
+            type="button"
+            onClick={() => setIsOpen((open) => !open)}
+            className="inline-flex h-11 w-11 items-center justify-center border transition-colors lg:hidden"
+            style={{
+              borderRadius: "0.5rem",
+              borderColor: transparent ? "rgba(255,255,255,0.18)" : "rgba(18,24,38,0.12)",
+              color: transparent ? "white" : "var(--ink)",
+              background: transparent ? "rgba(255,255,255,0.08)" : "white",
+            }}
+            aria-label={isOpen ? "Close menu" : "Open menu"}
+          >
+            {isOpen ? <X size={22} /> : <Menu size={22} />}
+          </button>
+        </div>
+
+        {isOpen && (
+          <div className="mt-4 border-t pt-4 lg:hidden" style={{ borderColor: "rgba(18,24,38,0.1)" }}>
+            <div className="grid gap-2">
               {navLinks.map((link) => {
-                const isActive = location.pathname === link.path;
+                const active = isActivePath(link.path);
                 return (
                   <Link
                     key={link.path}
                     to={link.path}
-                    className="text-sm font-medium transition-colors relative nav-link"
+                    className="px-3 py-3 text-sm font-bold"
                     style={{
-                      color: isActive
-                        ? "#C08552"
-                        : isScrolled
-                        ? "#4B2E2B"
-                        : "rgba(255,248,240,0.90)",
-                      textDecoration: "none",
+                      borderRadius: "0.5rem",
+                      background: active ? "rgba(10,143,156,0.1)" : "transparent",
+                      color: active ? "var(--teal-dark)" : "var(--ink)",
                     }}
-                    data-active={isActive ? "true" : "false"}
-                    data-scrolled={isScrolled ? "true" : "false"}
                   >
                     {link.name}
-                    {/* Active underline */}
-                    {isActive && (
-                      <span
-                        style={{
-                          position: "absolute",
-                          bottom: -4,
-                          left: 0,
-                          right: 0,
-                          height: 1.5,
-                          background: "linear-gradient(90deg, #C08552, #D4A06A)",
-                          borderRadius: 2,
-                        }}
-                      />
-                    )}
                   </Link>
                 );
               })}
             </div>
 
-            {/* Mobile hamburger */}
-            <button
-              className="lg:hidden p-2"
-              onClick={() => setIsOpen(!isOpen)}
-              aria-label="Toggle menu"
-              style={{ background: "transparent", border: "none", cursor: "pointer" }}
-            >
-              {isOpen ? (
-                <X style={{ color: isScrolled ? "#4B2E2B" : "#FFF8F0" }} size={22} />
-              ) : (
-                <Menu style={{ color: isScrolled ? "#4B2E2B" : "#FFF8F0" }} size={22} />
-              )}
-            </button>
+            <Link to="/contact" className="btn-primary mt-4 w-full">
+              Request Quote <ArrowRight size={16} />
+            </Link>
           </div>
-
-          {/* Mobile dropdown */}
-          {isOpen && (
-            <div
-              className="lg:hidden absolute top-full left-0 right-0 animate-slide-up"
-              style={{
-                background: "#FFF8F0",
-                borderTop: "1px solid rgba(212,186,160,0.4)",
-                boxShadow: "0 8px 24px rgba(75,46,43,0.10)",
-              }}
-            >
-              <div className="flex flex-col py-4">
-                {navLinks.map((link) => {
-                  const isActive = location.pathname === link.path;
-                  return (
-                    <Link
-                      key={link.path}
-                      to={link.path}
-                      onClick={() => setIsOpen(false)}
-                      className="px-4 py-3 text-sm font-medium transition-colors"
-                      style={{
-                        color: isActive ? "#C08552" : "#4B2E2B",
-                        background: isActive ? "rgba(192,133,82,0.06)" : "transparent",
-                        borderLeft: isActive ? "3px solid #C08552" : "3px solid transparent",
-                        textDecoration: "none",
-                      }}
-                    >
-                      {link.name}
-                    </Link>
-                  );
-                })}
-              </div>
-            </div>
-          )}
-        </div>
-      </nav>
-
-      {/* Hover styles for desktop links */}
-      <style>{`
-        .nav-link:hover {
-          color: #C08552 !important;
-        }
-      `}</style>
-    </>
+        )}
+      </div>
+    </nav>
   );
 };
 

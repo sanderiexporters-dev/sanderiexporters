@@ -4,7 +4,9 @@ import { Eye, EyeOff, Lock, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Logo from "@/components/Logo";
+import SEOMetadata from "@/components/SEOMetadata";
 import loginBg from "@/assets/login-bg.jpg";
+import { siteUrl } from "@/data/siteMetadata";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -20,6 +22,13 @@ const Login = () => {
 
   return (
     <div className="min-h-screen flex">
+      <SEOMetadata
+        title="Login"
+        description="Sanderi Exporters account login."
+        url={`${siteUrl}/login`}
+        robots="noindex, nofollow"
+      />
+
       {/* Left Side - Image */}
       <div className="hidden lg:flex lg:w-1/2 relative">
         <img

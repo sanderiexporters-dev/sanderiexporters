@@ -1,0 +1,22 @@
+{
+  "name": "Sanderi Exporters",
+  "short_name": "Sanderi",
+  "description": "Agricultural products exporter from India for worldwide importers.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#f5f8fb",
+  "theme_color": "#0a8f9c",
+  "icons": [
+    {
+      "src": "/logo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

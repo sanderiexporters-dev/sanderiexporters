@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import tailwindcssAnimate from "tailwindcss-animate";
 
 export default {
   darkMode: ["class"],
@@ -47,18 +48,7 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        navy: {
-          DEFAULT: "hsl(var(--navy))",
-          light: "hsl(var(--navy-light))",
-          dark: "hsl(var(--navy-dark))",
-        },
-        gold: {
-          DEFAULT: "hsl(var(--gold))",
-          light: "hsl(var(--gold-light))",
-          dark: "hsl(var(--gold-dark))",
-        },
         cream: "hsl(var(--cream))",
-        slate: "hsl(var(--slate))",
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",
@@ -71,13 +61,33 @@ export default {
         },
       },
       fontFamily: {
-        sans: ['Inter', 'sans-serif'],
-        heading: ['Playfair Display', 'serif'],
+        sans: ["Manrope", "sans-serif"],
+        heading: ["Space Grotesk", "sans-serif"],
       },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+      },
+      opacity: {
+        6: "0.06",
+        7: "0.07",
+        8: "0.08",
+        12: "0.12",
+        14: "0.14",
+        18: "0.18",
+        35: "0.35",
+        48: "0.48",
+        54: "0.54",
+        62: "0.62",
+        66: "0.66",
+        68: "0.68",
+        72: "0.72",
+        74: "0.74",
+        76: "0.76",
+        78: "0.78",
+        86: "0.86",
+        88: "0.88",
       },
       keyframes: {
         "accordion-down": {
@@ -101,5 +111,5 @@ export default {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [tailwindcssAnimate],
 } satisfies Config;
