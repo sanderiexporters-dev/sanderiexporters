@@ -109,7 +109,7 @@ const AutoContactModal = () => {
       <div
         className="
           fixed inset-0 z-50 flex justify-center px-4
-          items-start pt-[88px] pb-4
+          items-start pt-[110px] pb-4
           lg:items-center lg:pt-0 lg:pb-0
         "
       >
@@ -117,7 +117,7 @@ const AutoContactModal = () => {
           className="
             w-full max-w-lg border border-white/18 bg-white shadow-2xl
             overflow-hidden overflow-y-auto
-            max-h-[calc(100dvh-96px)]
+            max-h-[calc(100dvh-118px)]
             lg:max-h-[calc(100vh-4rem)]
           "
           style={{ borderRadius: "0.5rem" }}
