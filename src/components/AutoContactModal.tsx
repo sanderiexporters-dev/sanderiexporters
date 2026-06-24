@@ -93,7 +93,7 @@ const AutoContactModal = () => {
 
   return (
     <>
-      {/* Full-screen dimmed backdrop */}
+      {/* Backdrop */}
       <button
         type="button"
         className="fixed inset-0 z-40 bg-[#121826]/62 backdrop-blur-sm"
@@ -102,19 +102,26 @@ const AutoContactModal = () => {
       />
 
       {/*
-        ── MOBILE FIX ──
-        On mobile: align-start + pt-[72px] so the card clears the navbar.
-        On sm+: center vertically as before.
-        The card itself is max-h + overflow-y-auto so it scrolls if content is tall.
+        Mobile : top-aligned, clears the navbar with pt-[72px]
+        Desktop: truly centered via items-center, no top padding offset
       */}
-      <div className="fixed inset-0 z-50 flex items-start sm:items-center justify-center px-4 pt-[72px] sm:pt-4 pb-4">
+      <div
+        className="
+          fixed inset-0 z-50 flex justify-center
+          items-start pt-[72px] pb-4 px-4
+          sm:items-center sm:pt-0 sm:pb-0 sm:px-4
+        "
+      >
         <div
-          className="w-full max-w-lg overflow-hidden border border-white/18 bg-white shadow-2xl
-                     max-h-[calc(100dvh-80px)] sm:max-h-[calc(100dvh-2rem)] overflow-y-auto"
+          className="
+            w-full max-w-lg border border-white/18 bg-white shadow-2xl
+            overflow-hidden overflow-y-auto
+            max-h-[calc(100dvh-80px)]
+            sm:max-h-[calc(100vh-4rem)]
+          "
           style={{ borderRadius: "0.5rem" }}
         >
-
-          {/* Header — sticky so it stays visible while scrolling the form */}
+          {/* Header — sticky so it stays visible while scrolling the form on mobile */}
           <div className="sticky top-0 z-10 bg-[#121826] p-5 sm:p-6 text-white">
             <div className="flex items-start justify-between gap-4">
               <div>
@@ -180,7 +187,13 @@ const AutoContactModal = () => {
                   <label className="text-sm font-bold text-[#273244]">Country</label>
                   <div className="relative">
                     <Globe size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#0a8f9c] pointer-events-none z-10" />
-                    <select name="country" value={formData.country} onChange={handleChange} className="input-premium pl-10 w-full appearance-none bg-white cursor-pointer" style={{ borderRadius: "0.5rem" }}>
+                    <select
+                      name="country"
+                      value={formData.country}
+                      onChange={handleChange}
+                      className="input-premium pl-10 w-full appearance-none bg-white cursor-pointer"
+                      style={{ borderRadius: "0.5rem" }}
+                    >
                       <option value="">Select country</option>
                       {countries.map((c) => <option key={c} value={c}>{c}</option>)}
                     </select>
@@ -193,7 +206,14 @@ const AutoContactModal = () => {
                 <label className="text-sm font-bold text-[#273244]">Message *</label>
                 <div className="relative">
                   <MessageSquare size={16} className="absolute left-3 top-3 text-[#0a8f9c]" />
-                  <Textarea name="message" value={formData.message} onChange={handleChange} placeholder="Product, quantity, destination and packaging..." rows={4} className="input-premium resize-none pl-10" />
+                  <Textarea
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
+                    placeholder="Product, quantity, destination and packaging..."
+                    rows={4}
+                    className="input-premium resize-none pl-10"
+                  />
                 </div>
               </div>
 
