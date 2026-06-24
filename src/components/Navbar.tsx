@@ -44,7 +44,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="fixed inset-x-0 top-0 z-50 px-4 pt-4">
+    <nav className="fixed inset-x-0 top-0 z-[60] px-4 pt-4">
       <div
         className="container mx-auto border px-4 py-3 shadow-lg backdrop-blur-xl transition-all duration-300 md:px-5"
         style={{

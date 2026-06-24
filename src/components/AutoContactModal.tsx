@@ -93,7 +93,7 @@ const AutoContactModal = () => {
 
   return (
     <>
-      {/* Backdrop */}
+      {/* Backdrop — z-40 so navbar (z-60) always sits above it */}
       <button
         type="button"
         className="fixed inset-0 z-40 bg-[#121826]/62 backdrop-blur-sm"
@@ -102,26 +102,27 @@ const AutoContactModal = () => {
       />
 
       {/*
-        Mobile : top-aligned, clears the navbar with pt-[72px]
-        Desktop: truly centered via items-center, no top padding offset
+        z-50: above backdrop, below navbar (z-60)
+        Mobile/tablet: items-start + pt-[88px] pushes card below the navbar
+        Desktop (lg+): items-center + pt-0 = truly centered
       */}
       <div
         className="
-          fixed inset-0 z-50 flex justify-center
-          items-start pt-[72px] pb-4 px-4
-          sm:items-center sm:pt-0 sm:pb-0 sm:px-4
+          fixed inset-0 z-50 flex justify-center px-4
+          items-start pt-[88px] pb-4
+          lg:items-center lg:pt-0 lg:pb-0
         "
       >
         <div
           className="
             w-full max-w-lg border border-white/18 bg-white shadow-2xl
             overflow-hidden overflow-y-auto
-            max-h-[calc(100dvh-80px)]
-            sm:max-h-[calc(100vh-4rem)]
+            max-h-[calc(100dvh-96px)]
+            lg:max-h-[calc(100vh-4rem)]
           "
           style={{ borderRadius: "0.5rem" }}
         >
-          {/* Header — sticky so it stays visible while scrolling the form on mobile */}
+          {/* Sticky header so it stays visible while scrolling on mobile */}
           <div className="sticky top-0 z-10 bg-[#121826] p-5 sm:p-6 text-white">
             <div className="flex items-start justify-between gap-4">
               <div>
@@ -156,7 +157,6 @@ const AutoContactModal = () => {
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-4 p-5 sm:p-6">
-              {/* Name + Email */}
               <div className="grid gap-4 sm:grid-cols-2">
                 <div className="space-y-2">
                   <label className="text-sm font-bold text-[#273244]">Name *</label>
@@ -174,7 +174,6 @@ const AutoContactModal = () => {
                 </div>
               </div>
 
-              {/* Phone + Country */}
               <div className="grid gap-4 sm:grid-cols-2">
                 <div className="space-y-2">
                   <label className="text-sm font-bold text-[#273244]">Phone</label>
@@ -201,7 +200,6 @@ const AutoContactModal = () => {
                 </div>
               </div>
 
-              {/* Message */}
               <div className="space-y-2">
                 <label className="text-sm font-bold text-[#273244]">Message *</label>
                 <div className="relative">
